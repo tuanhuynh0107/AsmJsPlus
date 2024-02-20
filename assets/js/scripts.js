@@ -15,7 +15,7 @@ function load(selector, path) {
     if (cached) {
         $(selector).innerHTML = cached;
     }
-
+    
     fetch(path)
         .then((res) => res.text())
         .then((html) => {

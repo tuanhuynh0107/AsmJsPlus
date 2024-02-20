@@ -53,12 +53,30 @@
                 <form action="#!" class="form auth__form" id="form-1">
                     <div class="form__group">
                         <div class="form__text-input">
+                            <input type="text" name="fullname" id="fullname" placeholder="fullname" class="form__input"
+                                autofocus required />
+                            <img src="./assets/icons/message.svg" alt="" class="form__input-icon" />
+                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                        </div>
+                        <p class="form__error">Email is not in correct format</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
                             <input type="email" name="email" id="email" placeholder="Email" class="form__input"
                                 autofocus required />
                             <img src="./assets/icons/message.svg" alt="" class="form__input-icon" />
                             <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
                         <p class="form__error">Email is not in correct format</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input type="text" name="userName" id="userName" placeholder="userName" class="form__input"
+                                required />
+                            <img src="./assets/icons/message.svg" alt="" class="form__input-icon" />
+                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                        </div>
+                        <p class="form__error">UserName is not in correct format</p>
                     </div>
                     <div class="form__group">
                         <div class="form__text-input">
@@ -115,8 +133,9 @@
             formGroupSelector: '.form__group',
             errorSelector: '.form__error',
             rules: [
-                // Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
-                Validator.isEmail('#email'),
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                Validator.isEmail('#email', 'Nhập sai email'),
+                Validator.isUserName('#userName', 'UserNam cần ít nhất 4 ký tự và 1 số'),
                 Validator.minLength('#password', 6),
                 Validator.isRequired('#password_confirmation'),
                 Validator.isConfirmed('#password_confirmation', function () {
@@ -125,7 +144,34 @@
             ],
             onSubmit: function (data) {
                 // Call API
-                console.log(data);
+                // console.log(data);
+                const dataNew = {
+                    name: data.fullname,
+                    gender: "khac",
+                    userName: data.userName,
+                    email: data.email,
+                    password: data.password,
+                    address: ""
+                }
+                var courseApi = 'http://localhost:3000/user';
+
+                function handleCreateCourse(data, callback) {
+                    var options = {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    }
+                    fetch(courseApi, options)
+                        .then((response) => {
+                            response.json();
+                        })
+                        .then(callback);
+                }
+                handleCreateCourse(dataNew, function () {
+                    alert("Đăng ký thành công")
+                })
             }
         });
     });

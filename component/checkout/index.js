@@ -30,7 +30,7 @@ function renderViewCart() {
             htmls += `
             <article class="cart-item" data-masp="${cart.masp}">
                 <a href="./product-detail.html">
-                    <img src="${cart.image}" alt="" class="cart-item__thumb" />
+                    <img src="./assets/img/product/${cart.image}" alt="" class="cart-item__thumb" />
                 </a>
                 <div class="cart-item__content">
                     <div class="cart-item__content-left">

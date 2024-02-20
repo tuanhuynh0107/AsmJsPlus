@@ -23,11 +23,7 @@ export function getCartProducts() {
             <div class="col">
                 <article class="cart-preview-item">
                     <div class="cart-preview-item__img-wrap">
-                        <img
-                            src="${cart.image}"
-                            alt=""
-                            class="cart-preview-item__thumb"
-                        />
+                        <img src="./assets/img/product/${cart.image}" alt="" class="cart-preview-item__thumb"/>
                     </div>
                     <h3 class="cart-preview-item__title">${cart.name}</h3>
                     <p class="cart-preview-item__price">${cart.price}</p>

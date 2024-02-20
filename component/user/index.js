@@ -83,7 +83,7 @@ function Validator(options) {
                                 values[input.name].push(input.value);
                                 break;
                             case 'file':
-                                values[input.name] = input.files;
+                                values[input.name] = input.value;
                                 break;
                             default:
                                 values[input.name] = input.value;
@@ -154,6 +154,16 @@ Validator.isEmail = function (selector, message) {
         }
     };
 }
+Validator.isUserName = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var regex =/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/;
+
+            return regex.test(value) ? undefined :  message || 'Có ít nhất 4 chữ cái và 1 số';
+        }
+    };
+}
 
 Validator.minLength = function (selector, min, message) {
     return {
@@ -181,6 +191,7 @@ async function getData() {
         const data = await response.json();
 
         globalData = data;
+        // console.log(globalData);
         return data; // Trả về dữ liệu để sử dụng trong khối .then tiếp theo
     } catch (error) {
         console.log(error); // Ném lỗi để bắt trong khối .catch tiếp theo
@@ -192,9 +203,9 @@ function checkLogin(email, password) {
     // Tìm user có email như người dùng nhập vào
     const user = userData.find(user => user.email === email);
     // Kiểm tra nếu không tìm thấy user hoặc mật khẩu không đúng
-    if (!user || user.passWord !== password) {
-        return false; // Đăng nhập không thành công
-    }
+    // if (!user || user.passWord !== password) {
+    //     return false; // Đăng nhập không thành công
+    // }
 
     return user; // Đăng nhập thành công
 }
@@ -210,7 +221,7 @@ function handleLogin(email,password) {
       // Dữ liệu người dùng nhập vào
       const userInputEmail = email;
       const userInputPassword = password;
-  
+        console.log(userInputEmail,userInputPassword);
       // Kiểm tra đăng nhập
       const proFile = checkLogin(userInputEmail, userInputPassword);
       console.log(proFile);

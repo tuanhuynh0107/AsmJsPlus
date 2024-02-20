@@ -35,7 +35,7 @@ function showItemInHome(product) {
     const proHeanding = $('.prod-info__heading');
     const proPrice = $('.price');
     const proCata = $('.breadcrumbs__link--current');
-    proImg.src = product.image;
+    proImg.src += product.image;
     proHeanding.innerText = product.name;
     proCata.innerText = product.catagori;
     proPrice.innerHTML = formatCurrency(product.price);
